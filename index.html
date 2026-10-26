@@ -177,6 +177,8 @@
   .todo-title{font-size:15px;font-weight:900;line-height:1.35;}
   .todo-note{font-size:12.5px;color:var(--ink-soft);line-height:1.55;margin:4px 0 10px;}
   .todo .btn{display:inline-flex;}
+  .todo-del{border:none;background:none;color:#d08b8b;font-size:16px;cursor:pointer;flex:0 0 auto;align-self:flex-start;padding:2px 2px 0;}
+  .todo-del:active{transform:scale(.9);}
 
   /* rules / list */
   ul.clean{list-style:none;margin:0;padding:0;}
@@ -291,6 +293,8 @@
   .acct .ae{font-size:11px;color:var(--ink-soft);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
   .acct button{border:none;background:#F5ECF1;color:var(--plum);font-family:inherit;font-weight:800;font-size:12px;padding:8px 13px;border-radius:12px;cursor:pointer;flex:0 0 auto;}
   .sync{font-size:10.5px;color:#4a9d6e;font-weight:700;}
+  .set-note{font-size:12.5px;color:var(--ink-soft);line-height:1.7;margin:12px 0 0;background:#FBF4F7;border-radius:14px;padding:11px 13px;}
+  .set-note b{color:var(--plum);}
 </style>
 </head>
 <body>
@@ -334,7 +338,6 @@
 
   <!-- ===== 指南 ===== -->
   <section id="page-guide" class="page">
-    <div id="acctbar"></div>
     <div class="intro-card">
       <b>🧳 行前準備工具盒</b>
       <p>打包、規範、緊急聯絡與重要資料都收在這裡。打包清單會自動記住你的勾選與數量（在手機 Safari 開啟時）。</p>
@@ -342,25 +345,8 @@
 
     <div class="sec">
       <div class="sec-h"><span class="ic">📌</span>行前待辦</div>
-      <div class="sec-sub">出發前要先完成的事</div>
-      <div class="todo" id="todo-pizza">
-        <div class="todo-check" data-todo="pizza">✓</div>
-        <div class="todo-body">
-          <div class="todo-date">⏰ 11/1 開放・請當天線上訂位</div>
-          <div class="todo-title">Pizza 4P's Hoang Van Thu 線上訂位</div>
-          <div class="todo-note">Day 3 晚餐・人氣餐酒館，務必提前線上訂位。</div>
-          <a class="btn btn-map" href="https://www.google.com/maps/reserve/v/dine/c/poGJMKMvN9U?source=pa&opi=89978449&hl=zh-TW&gei=q2PfauehEc6f1e8P6bzl6AE&sourceurl=https://www.google.com/search?q%3DPizza%2B4P%27s%2BHoang%2BVan%2BThu%2B%25E8%25A8%2582%25E4%25BD%258D%26oq%3DPizza%2B4P%27s%2BHoang%2BVan%2BThu%2B%25E8%25A8%2582%25E4%25BD%258D%26gs_lcrp%3DEgZjaHJvbWUyBggAEEUYOTIHCAEQABjvBTIKCAIQABiABBiiBDIKCAMQABiABBiiBDIKCAQQABiABBiiBNIBCDE2MjdqMGo5qAIGsAIB8QVF-wTY5A7krw%26sourceid%3Dchrome%26source%3Dchrome.ob%26ie%3DUTF-8" target="_blank" rel="noopener">🍕 前往線上訂位</a>
-        </div>
-      </div>
-      <div class="todo" id="todo-poseidon" style="margin-top:11px;">
-        <div class="todo-check" data-todo="poseidon">✓</div>
-        <div class="todo-body">
-          <div class="todo-date">💬 已 FB 詢問・等待回應</div>
-          <div class="todo-title">Buffet Poseidon Đà Nẵng Premium 訂位</div>
-          <div class="todo-note">Day 4 午餐・海鮮吃到飽，需訂位、不收現金。已透過 Facebook 詢問，等待回覆中。</div>
-          <a class="btn btn-link" href="https://maps.apple.com/?q=Buffet%20Poseidon%20%C4%90%C3%A0%20N%E1%BA%B5ng%20Premium" target="_blank" rel="noopener">📍 查看店家</a>
-        </div>
-      </div>
+      <div class="sec-sub">可勾選、刪除、自由新增</div>
+      <div id="todobox"></div>
     </div>
 
     <div class="sec">
@@ -407,6 +393,24 @@
     <div class="mapwrap" id="routemap"></div>
   </section>
 
+  <section id="page-settings" class="page">
+    <div class="intro-card">
+      <b>⚙️ 設定</b>
+      <p>你的帳號與同步狀態都在這裡。打包清單與待辦會依你的 Google 帳號雲端同步。</p>
+    </div>
+    <div class="sec">
+      <div class="sec-h"><span class="ic">👤</span>我的帳號</div>
+      <div id="acctbar"></div>
+      <p class="set-note">🔄 換裝置登入<b>同一個 Google 帳號</b>就能看到自己的紀錄。<br>想換人使用 → 按上方「登出」，再用<b>另一個 Google 帳號</b>登入即可。</p>
+    </div>
+    <div class="sec">
+      <div class="sec-h"><span class="ic">ℹ️</span>關於</div>
+      <div class="info-row"><span class="k">行程</span><span class="v">峴港四天三夜</span></div>
+      <div class="info-row"><span class="k">日期</span><span class="v">11/26–11/29（4 天 3 夜）</span></div>
+      <div class="info-row"><span class="k">版本</span><span class="v">線上版・Google 登入</span></div>
+    </div>
+  </section>
+
   <div class="footnote">J人小本本 ♡ 祝旅途順心<br>資料來源：旅遊手冊 PDF・外交部領事局・越南緊急服務</div>
 </div>
 
@@ -414,6 +418,7 @@
   <button data-go="trip" class="active"><span class="ni">🗺</span><span class="nl">行程</span></button>
   <button data-go="guide"><span class="ni">🧳</span><span class="nl">指南</span></button>
   <button data-go="wx"><span class="ni">🌤</span><span class="nl">天氣</span></button>
+  <button data-go="settings"><span class="ni">⚙️</span><span class="nl">設定</span></button>
 </nav>
 <div class="toast" id="toast"></div>
 
@@ -683,10 +688,20 @@ function renderTrip(){
 /* ===== User data (per-account cloud, local fallback) ===== */
 let UDATA=null, packState=null, _saveT=null;
 function freshPack(){ return PACK_DEFAULT.map(c=>({cat:c.cat,icon:c.icon,items:c.items.map(i=>({n:i.n,q:i.q,done:false}))})); }
+const DEFAULT_TODOS = [
+  { title:"Pizza 4P's Hoang Van Thu 線上訂位", date:"⏰ 11/1 開放・請當天線上訂位",
+    note:"Day 3 晚餐・人氣餐酒館，務必提前線上訂位。",
+    link:{t:"🍕 前往線上訂位", cls:"btn-map", u:"https://www.google.com/maps/reserve/v/dine/c/poGJMKMvN9U?source=pa&opi=89978449&hl=zh-TW"}, done:false },
+  { title:"Buffet Poseidon Đà Nẵng Premium 訂位", date:"💬 已 FB 詢問・等待回應",
+    note:"Day 4 午餐・海鮮吃到飽，需訂位、不收現金。已透過 Facebook 詢問，等待回覆中。",
+    link:{t:"📍 查看店家", cls:"btn-link", u:"https://maps.apple.com/?q=Buffet%20Poseidon%20%C4%90%C3%A0%20N%E1%BA%B5ng%20Premium"}, done:false }
+];
+function esc(s){ return String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
 function ensureUData(){
   if(!UDATA||typeof UDATA!=="object") UDATA={};
   if(!Array.isArray(UDATA.pack)) UDATA.pack=freshPack();
   if(!UDATA.todos||typeof UDATA.todos!=="object") UDATA.todos={};
+  if(!Array.isArray(UDATA.todoList)) UDATA.todoList=DEFAULT_TODOS.map(t=>Object.assign({},t));
   if(typeof UDATA.hotel!=="string") UDATA.hotel="";
   packState=UDATA.pack;
 }
@@ -748,22 +763,42 @@ function packKey(e){
   }
 }
 
-function initTodos(){
+function renderTodos(){
   ensureUData();
-  document.querySelectorAll(".todo-check").forEach(chk=>{
-    const k=chk.dataset.todo, box=chk.closest(".todo");
-    const on=!!UDATA.todos[k];
-    chk.classList.toggle("on",on); box.classList.toggle("done",on);
-    chk.onclick=()=>{
-      const nv=!chk.classList.contains("on");
-      chk.classList.toggle("on",nv); box.classList.toggle("done",nv);
-      UDATA.todos[k]=nv; cloudSave();
-    };
-  });
+  const el=document.getElementById("todobox"); if(!el) return;
+  el.innerHTML=UDATA.todoList.map((t,i)=>`
+    <div class="todo ${t.done?'done':''}" style="${i>0?'margin-top:11px;':''}">
+      <div class="todo-check ${t.done?'on':''}" data-ti="${i}">✓</div>
+      <div class="todo-body">
+        ${t.date?`<div class="todo-date">${esc(t.date)}</div>`:""}
+        <div class="todo-title">${esc(t.title)}</div>
+        ${t.note?`<div class="todo-note">${esc(t.note)}</div>`:""}
+        ${t.link&&t.link.u?`<a class="btn ${t.link.cls||'btn-map'}" href="${esc(t.link.u)}" target="_blank" rel="noopener">${esc(t.link.t||'開啟')}</a>`:""}
+      </div>
+      <button class="todo-del" data-tdel="${i}" title="刪除">🗑</button>
+    </div>`).join("")+`
+    <div class="pk-add" style="margin-top:11px;">
+      <input type="text" id="todo-input" placeholder="新增待辦事項…">
+      <button id="todo-addbtn">新增</button>
+    </div>`;
 }
+function todoAdd(){
+  const inp=document.getElementById("todo-input"); if(!inp) return;
+  const v=inp.value.trim(); if(!v) return;
+  ensureUData(); UDATA.todoList.push({title:v,done:false}); cloudSave(); renderTodos();
+  toast("已加入待辦 ♡");
+}
+function todoClick(e){
+  const c=e.target.closest("[data-ti]");
+  if(c){ const i=+c.dataset.ti; UDATA.todoList[i].done=!UDATA.todoList[i].done; cloudSave(); renderTodos(); return; }
+  const d=e.target.closest("[data-tdel]");
+  if(d){ UDATA.todoList.splice(+d.dataset.tdel,1); cloudSave(); renderTodos(); return; }
+  if(e.target.id==="todo-addbtn") todoAdd();
+}
+function todoKey(e){ if(e.key==="Enter"&&e.target.id==="todo-input") todoAdd(); }
 function renderGuide(){
   renderPack();
-  initTodos();
+  renderTodos();
   document.getElementById("rules").innerHTML=RULES.map(r=>`<li><span class="mk">◆</span><span>${r}</span></li>`).join("");
   document.getElementById("emergency").innerHTML=EMERGENCY.map(e=>`
     <div class="emg">
@@ -900,6 +935,8 @@ document.addEventListener("DOMContentLoaded",()=>{
   });
   document.getElementById("packing").addEventListener("click",packClick);
   document.getElementById("packing").addEventListener("keydown",packKey);
+  const tb=document.getElementById("todobox");
+  if(tb){ tb.addEventListener("click",todoClick); tb.addEventListener("keydown",todoKey); }
   document.querySelectorAll("#nav button").forEach(b=>b.addEventListener("click",()=>go(b.dataset.go)));
 });
 </script>
@@ -938,6 +975,7 @@ if(!CONFIGURED){
   const auth = getAuth(app);
   const db   = getFirestore(app);
   const provider = new GoogleAuthProvider();
+  provider.setCustomParameters({ prompt: "select_account" });
   let userRef=null, unsub=null;
 
   if(gbtn) gbtn.onclick = async ()=>{
